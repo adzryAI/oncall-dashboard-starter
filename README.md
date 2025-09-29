@@ -1,24 +1,22 @@
-# On‑Call Dashboard — React/Next.js Starter (Apple Minimalism)
+# On-Call Dashboard Starter
 
-Production-ready starter that includes:
-- Apple-inspired white minimalist UI (TailwindCSS)
-- Google Sheets on‑call table + filters + insights panel
-- Chatbox “On‑Call Pilot” wired to your Apps Script backend (memory + self-upgrade)
-- PWA manifest, SEO meta, clean structure
+[![Deploy to Vercel](https://github.com/adzryAI/oncall-dashboard-starter/actions/workflows/deploy.yml/badge.svg)](https://github.com/adzryAI/oncall-dashboard-starter/actions)
+[![Vercel Status](https://img.shields.io/badge/Vercel-Deployed-brightgreen?logo=vercel)](https://oncall-dashboard-starter.vercel.app)
 
-## Quick Start
-```bash
-npm install
-cp .env.example .env.local
-# edit .env.local
-npm run dev
-```
+---
 
-Open http://localhost:3000/dashboard
+## ⚙️ CI/CD: Next.js + Vercel
 
-## Configure
-- Put your Google Sheet ID and GID in `lib/config.ts`
-- Set `CHAT_ENDPOINT` in `.env.local` (Apps Script Web App URL)
+This project is set up with **GitHub Actions** and **Vercel** for continuous deployment.
 
-## Deploy
-- Vercel (recommended): push to GitHub, import to Vercel
+### 🔑 Secrets & Environment Variables
+- **GitHub Secret**  
+  - `VERCEL_TOKEN` → Required. Generate from [Vercel Tokens](https://vercel.com/account/tokens) and add in GitHub → Settings → Secrets → Actions.  
+- **Vercel Environment Variables**  
+  - `CHAT_ENDPOINT` → URL of the deployed Google Apps Script chat backend.  
+  - `SHEET_ID` → Google Sheet ID for on-call schedule data.  
+  - `GID` → Tab GID inside the sheet.  
+  Configure these under Vercel Project → Settings → Environment Variables.
+
+### 🔄 Workflow Behavior
+- **Push to `main`** → Automatically builds and deploys to **production** at
