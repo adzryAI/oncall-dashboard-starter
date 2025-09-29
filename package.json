@@ -1,0 +1,31 @@
+{
+  "name": "oncall-dashboard-starter",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "ai": "3.0.22",
+    "assistant-ui": "^0.0.60",
+    "autoprefixer": "10.4.17",
+    "clsx": "2.1.1",
+    "next": "^15.5.4",
+    "postcss": "8.4.35",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tailwindcss": "3.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "20.12.7",
+    "@types/react": "18.2.79",
+    "@types/react-dom": "18.2.25",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.5",
+    "typescript": "5.4.5"
+  }
+}

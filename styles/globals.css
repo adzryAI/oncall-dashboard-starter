@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --accent: #007aff; }
+html, body { height:100%; }
+body {
+  @apply bg-white text-neutral-900;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+}
+a { @apply text-blue-600 hover:underline; }
+.btn {
+  @apply inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm transition;
+}
+.btn-primary { @apply bg-blue-600 text-white border-blue-600 hover:bg-blue-700; }
+.btn-outline { @apply bg-white text-neutral-900 border-neutral-300 hover:bg-neutral-50; }
+.card { @apply bg-white rounded-2xl border border-neutral-200 shadow; }
+.input { @apply border border-neutral-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-200; }
+.badge { @apply inline-flex items-center text-xs rounded-full px-2 py-1 border border-neutral-200 bg-neutral-50; }
+.soft { @apply text-neutral-500; }
