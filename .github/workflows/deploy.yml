@@ -1,28 +1,68 @@
-name: Deploy to Vercel
+# Production-ready GitHub Actions workflow for deploying a Next.js app to Vercel.
+# Triggers:
+#   - push to main -> deploy to production
+#   - pull_request -> deploy to preview
+# Notes:
+#   - VERCEL_TOKEN must be added as a repository secret in GitHub:
+#       Settings → Secrets and variables → Actions → New repository secret
+#   - Configure CHAT_ENDPOINT, SHEET_ID, and GID as Environment Variables in your
+#     Vercel Project → Settings → Environment Variables (so runtime builds / server
+#     functions have access to them).
+#
+# This workflow:
+# 1. Checks out the repo
+# 2. Sets up Node.js 20.x with npm caching
+# 3. Installs dependencies with npm ci
+# 4. Runs npm run build
+# 5. Deploys with npx vercel:
+#     - On push to main: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
+#     - On pull_request:  npx vercel --token=${{ secrets.VERCEL_TOKEN }}
+#
+# The job will fail fast if any step errors (default Actions behavior).
+name: Vercel Deploy
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   deploy:
+    name: Deploy to Vercel
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js 20.x with npm caching
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20.x'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build project
+      - name: Build
         run: npm run build
 
-      - name: Deploy to Vercel
-        run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy to Vercel (production)
+        if: github.ref == 'refs/heads/main'
+        env:
+          # VERCEL_TOKEN must be stored as a GitHub Actions secret
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          # Deploy the built project to Vercel production using the token from secrets
+          npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy to Vercel (preview)
+        if: github.event_name == 'pull_request'
+        env:
+          # VERCEL_TOKEN must be stored as a GitHub Actions secret
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          # Deploy a preview to Vercel (non-prod) for pull requests
+          npx vercel --token=${{ secrets.VERCEL_TOKEN }}
